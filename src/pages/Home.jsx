@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import shortid from "shortid";
-import { addTodo, deleteTodo } from "../redux/modules/todos";
+import { addTodo, deleteTodo, switchTodo } from "../redux/modules/todos";
 
 const Home = () => {
   const todos = useSelector((state) => state.todos);
@@ -74,7 +74,21 @@ const Home = () => {
                   <button onClick={() => onClickDeleteTodo(todo.id)}>
                     삭제
                   </button>
-                  <button>완료</button>
+                  <button
+                    onClick={function () {
+                      const doneTodos = todos.map((item) => {
+                        if (item.id === todo.id) {
+                          return { ...item, isDone: !item.isDone };
+                        } else {
+                          return item;
+                        }
+                      });
+                      console.log("!!");
+                      dispatch(switchTodo(doneTodos));
+                    }}
+                  >
+                    완료
+                  </button>
                 </li>
               );
             })}

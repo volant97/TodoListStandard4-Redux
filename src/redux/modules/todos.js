@@ -17,6 +17,14 @@ export const deleteTodo = (payload) => {
   };
 };
 
+const SWITCH_TODO = "SWITCH_TODO ";
+export const switchTodo = (payload) => {
+  return {
+    type: SWITCH_TODO,
+    payload,
+  };
+};
+
 const initialState = [
   {
     id: shortid.generate(),
@@ -43,8 +51,8 @@ const todos = (state = initialState, action) => {
       const newTodos = state.filter((todo) => todo.id !== id);
       return newTodos;
 
-    case "SWITCH_TODO":
-      return; //TODO: 여기 작성
+    case SWITCH_TODO:
+      return [action.payload, ...state];
 
     default:
       return state;
